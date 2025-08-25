@@ -85,18 +85,18 @@ const AboutSection = () => {
             variants={itemVariants}
             whileHover={{ y: -6, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="col-span-6 md:col-span-3 lg:col-span-4 row-span-2 bg-gradient-card border border-white/20 dark:border-white/10 rounded-3xl p-6 md:p-8 transition-transform"
+            className="col-span-6 md:col-span-3 flex flex-col justify-center lg:col-span-4 row-span-2 bg-gradient-card border border-white/20 dark:border-white/10 rounded-3xl p-6 md:p-8 transition-transform"
           >
-            <h2 className="text-2xl font-semibold text-foreground mb-3">
+            <h2 className="text-2xl font-semibold text-foreground mb-3 w-fit">
               Who I Am
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-              I’m a passionate Computer Science student and developer with a
-              focus on creating impactful digital solutions. My expertise spans
-              full stack development, mobile app development, and automation
-              using modern frameworks and tools. Beyond coding, I’m deeply
-              interested in problem solving, geospatial systems, and building
-              scalable, efficient applications that improve everyday workflows.
+              Hey! I’m Uday😎, a computer nerd who loves turning coffee into
+              code. I build websites, apps, and little automation hacks that
+              make life easier. When not coding, I’m probably geeking out on
+              tech stuff, experimenting with cool ideas, or trying to pull a
+              Naruto-style jutsu 🌀 in digital form. Basically, if it’s tech and
+              fun, I’m there!
             </p>
           </motion.div>
 
@@ -114,19 +114,19 @@ const AboutSection = () => {
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                 <span className="text-muted-foreground">
-                  B.Tech in CSE at ACET
+                  Student at ACET 🎓 (CSE)
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
                 <span className="text-muted-foreground">
-                  Full Stack & Mobile Developer
+                  Full Stack & Mobile Dev 💻
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></span>
                 <span className="text-muted-foreground">
-                  Automation Enthusiast
+                  Automation & Random Hacks ⚡
                 </span>
               </div>
             </div>
@@ -142,15 +142,21 @@ const AboutSection = () => {
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold">10+</div>
-                <div className="text-xs text-muted-foreground">Projects</div>
+                <div className="text-xs text-muted-foreground">
+                  Projects (fun ones)
+                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold">4</div>
-                <div className="text-xs text-muted-foreground">Stacks</div>
+                <div className="text-xs text-muted-foreground">
+                  Stacks I use
+                </div>
               </div>
               <div>
                 <div className="text-2xl font-bold">3</div>
-                <div className="text-xs text-muted-foreground">Platforms</div>
+                <div className="text-xs text-muted-foreground">
+                  Platforms I touch
+                </div>
               </div>
             </div>
           </motion.div>

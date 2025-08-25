@@ -81,11 +81,11 @@ const Footer = () => {
           {/* Main Content */}
           <motion.div variants={itemVariants} className="mb-12">
             <h3 className="text-3xl font-bold text-foreground mb-4">
-              Let's Create Something Amazing Together
+              Summon Me for Epic Missions! 🥷
             </h3>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              I'm always open to discussing new projects, creative ideas, or
-              opportunities to be part of your visions.
+              Have a secret scroll, a coding mission, or a ramen-fueled idea?
+              Let’s combine jutsus and make magic happen! 🍜⚡
             </p>
 
             {/* CTA Button */}
@@ -94,7 +94,7 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Start a Conversation
+              Summon the Ninja! ⚔️
             </motion.button>
           </motion.div>
 
@@ -130,24 +130,12 @@ const Footer = () => {
             className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground"
           >
             <div className="flex items-center gap-2">
-              <span>© 2024 Creative Developer. Made with</span>
+              <span>© 2025 Ninja Developer. Crafted with</span>
               <Heart className="w-4 h-4 text-accent fill-current" />
-              <span>and lots of coffee</span>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <Link
-                href="/privacy"
-                className="hover:text-foreground transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="hover:text-foreground transition-colors"
-              >
-                Terms of Service
-              </Link>
+              <span>
+                and endless ramen, chakra, caffeine and questionable life
+                choices ☕🍜😢
+              </span>
             </div>
           </motion.div>
         </motion.div>

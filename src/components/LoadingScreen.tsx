@@ -1,13 +1,28 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, easeOut, easeInOut } from "framer-motion";
-import { Code, Palette, Smartphone, Box } from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  easeOut,
+  easeInOut,
+  Variants,
+} from "framer-motion";
+import { Code, Braces, Smartphone, Box } from "lucide-react";
+
+const phrases = [
+  "Charging Chakra...",
+  "Summoning Jutsu...",
+  "Sharpening Kunai...",
+  "Running Shadow Clone...",
+  "Preparing Rasengan...",
+];
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [minimal, setMinimal] = useState(false);
+  const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
     const isCoarse =
@@ -35,12 +50,20 @@ const LoadingScreen = () => {
       minimal ? 60 : 100
     );
 
-    return () => clearInterval(timer);
+    const phraseTimer = setInterval(() => {
+      setPhraseIndex((prev) => (prev + 1) % phrases.length);
+    }, 1200);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(phraseTimer);
+    };
   }, [minimal]);
 
-  const logoVariants = {
+  // Fixed variants type
+  const logoVariants: Variants = {
     hidden: { scale: 0, rotate: -180 },
-    visible: (i: number) => ({
+    visible: (i = 0) => ({
       scale: 1,
       rotate: 0,
       transition: {
@@ -53,7 +76,7 @@ const LoadingScreen = () => {
     }),
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
@@ -83,11 +106,14 @@ const LoadingScreen = () => {
         {/* Logo Animation */}
         {!minimal && (
           <div className="flex items-center gap-3 mb-6">
-            {[Code, Palette, Smartphone, Box].map((Icon, i) => (
+            {[Code, Smartphone, Braces, Box].map((Icon, i) => (
               <motion.div
                 key={i}
                 custom={i}
                 className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-accent to-red-400"
+                initial="hidden"
+                animate="visible"
+                variants={logoVariants}
               >
                 <Icon className="w-6 h-6 text-white" />
               </motion.div>
@@ -105,9 +131,21 @@ const LoadingScreen = () => {
           />
         </div>
 
-        {/* Loading Text */}
+        {/* Animated Phrases */}
         <motion.p
-          className="text-muted-foreground text-sm"
+          key={phraseIndex}
+          className="text-muted-foreground text-sm font-mono mb-2"
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -5 }}
+          transition={{ duration: 0.4, ease: easeInOut }}
+        >
+          {phrases[phraseIndex]}
+        </motion.p>
+
+        {/* Default Loading Text */}
+        <motion.p
+          className="text-muted-foreground text-xs"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}

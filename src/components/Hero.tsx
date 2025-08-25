@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { motion, Variants } from "framer-motion";
 import {
   ChevronDown,
   Code2,
@@ -11,208 +12,168 @@ import {
   Mail,
   ArrowRight,
 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.2 } },
+  };
+
+  const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.42, 0, 0.58, 1] },
+    },
+  };
+
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen pt-nav flex items-center justify-center bg-gradient-animated overflow-hidden"
-    >
-      {/* Background Pattern with Grid */}
+    <section className="relative min-h-screen pt-nav flex items-center justify-center bg-gradient-animated overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 bg-grid-small-black/[0.02] dark:bg-grid-small-white/[0.02]" />
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/50 to-transparent opacity-70 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black_40%,transparent_100%)]" />
 
-      {/* Floating Background Elements */}
-      <div className="absolute inset-0">
-        <div
-          className="absolute top-20 left-10 w-32 h-32 bg-accent/10 rounded-full blur-3xl animate-float"
-          style={{ animationDelay: "0s", animationDuration: "6s" }}
-        />
-        <div
-          className="absolute bottom-20 right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl animate-float"
-          style={{ animationDelay: "2s", animationDuration: "8s" }}
-        />
-        <div
-          className="absolute top-1/2 right-1/4 w-24 h-24 bg-accent/15 rounded-full blur-2xl animate-float"
-          style={{ animationDelay: "4s", animationDuration: "7s" }}
-        />
-      </div>
+      {/* Content */}
+      <motion.div
+        className="relative z-10 w-full max-w-6xl mx-auto px-10 sm:px-8 lg:px-12 text-center space-y-8 md:space-y-12"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+      >
+        {/* Heading */}
+        <motion.div variants={fadeUp}>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground font-display">
+            Yo! I'm <span className="text-gradient-accent">Uday Kumar</span>{" "}
+            <span className="inline-block animate-wiggle">😎</span>
+          </h1>
+          <div className="w-24 h-1 bg-gradient-accent mx-auto rounded-full mt-2" />
+        </motion.div>
 
-      {/* Main Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-10 sm:px-8 lg:px-12">
-        <div className="text-center space-y-8 md:space-y-12">
-          {/* Avatar Section
-          <div
-            className={`transform transition-all duration-1000 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "0ms" }}
-          >
-            <div className="relative mx-auto w-32 h-32 md:w-36 md:h-36 mb-6">
-              <div className="w-full h-full rounded-full bg-gradient-accent p-1 animate-pulse-glow">
-                <div className="w-full h-full rounded-full bg-card border border-border flex items-center justify-center backdrop-blur-custom">
-                  <span className="text-2xl md:text-3xl font-bold text-gradient font-display">
-                    UK
-                  </span>
-                </div>
-              </div>
-              
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 md:w-7 md:h-7 bg-green-500 border-3 border-background rounded-full flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-              </div>
-            </div>
-          </div> */}
-
-          {/* Main Heading */}
-          <div
-            className={`space-y-4 transform transition-all duration-1000 mt-8 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "200ms" }}
-          >
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground font-display">
-              Hi, I'm <span className="text-gradient-accent">Uday Kumar</span>
-            </h1>
-            <div className="w-24 h-1 bg-gradient-accent mx-auto rounded-full" />
-          </div>
-
-          {/* Skills Pills */}
-          <div
-            className={`transform transition-all duration-1000 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "400ms" }}
-          >
-            <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-              <div className="group inline-flex items-center gap-2 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-gradient-card shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-border/50">
-                <Code2 className="w-4 h-4 text-accent group-hover:scale-110 transition-transform" />
-                <span className="text-sm md:text-base font-medium">
-                  Full Stack Developer
+        {/* Skills */}
+        <motion.div variants={fadeUp}>
+          <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4 h-full">
+            {[
+              { icon: <Code2 />, label: "Full Stack Jutsu" },
+              { icon: <Smartphone />, label: "Mobile Summonings" },
+              { icon: <Zap />, label: "Automation Rasengan" },
+            ].map((skill) => (
+              <motion.div
+                key={skill.label}
+                className="group inline-flex items-center gap-2 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-gradient-card shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-border/50 cursor-pointer"
+                whileHover={{ scale: 1.05, rotate: [0, 3, -3, 0] }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="w-4 h-4 text-accent flex items-center justify-center">
+                  {skill.icon}
                 </span>
-              </div>
-              <div className="group inline-flex items-center gap-2 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-gradient-card shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-border/50">
-                <Smartphone className="w-4 h-4 text-accent group-hover:scale-110 transition-transform" />
                 <span className="text-sm md:text-base font-medium">
-                  Mobile Apps
+                  <Tooltip>
+                    <TooltipTrigger>{skill.label}</TooltipTrigger>
+                    <TooltipContent>
+                      {skill.label === "Full Stack Jutsu" &&
+                        "Coding techniques as powerful as a ninja's jutsu!"}
+                      {skill.label === "Mobile Summonings" &&
+                        "Calling mobile apps into action like summoning creatures!"}
+                      {skill.label === "Automation Rasengan" &&
+                        "Spinning automated magic like Naruto's Rasengan!"}
+                    </TooltipContent>
+                  </Tooltip>
                 </span>
-              </div>
-              <div className="group inline-flex items-center gap-2 px-4 py-2.5 md:px-6 md:py-3 rounded-full bg-gradient-card shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-border/50">
-                <Zap className="w-4 h-4 text-accent group-hover:scale-110 transition-transform" />
-                <span className="text-sm md:text-base font-medium">
-                  Automation
-                </span>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
+        </motion.div>
 
-          {/* Description */}
-          <div
-            className={`transform transition-all duration-1000 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "600ms" }}
+        {/* Description */}
+        <motion.p
+          variants={fadeUp}
+          className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4"
+        >
+          I'm a CSE{" "}
+          <span className="text-accent font-medium">shinobi-in-training</span>{" "}
+          on a mission to make the web ninja-level fun 🥷. I craft{" "}
+          <span className="text-accent font-medium">web pages</span>,{" "}
+          <span className="text-accent font-medium">mobile apps</span>, and{" "}
+          <span className="text-accent font-medium">automation scripts</span> to
+          save time and look cool doing it.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          variants={fadeUp}
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-4"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, rotate: [0, 2, -2, 0] }}
+            whileTap={{ scale: 0.95 }}
+            className="group inline-flex items-center gap-2 h-12 md:h-14 px-8 md:px-10 bg-gradient-accent text-primary-foreground rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl"
           >
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-              CSE Student passionate about building exceptional digital
-              experiences. I create{" "}
-              <span className="text-accent font-medium">web applications</span>,
-              <span className="text-accent font-medium"> mobile apps</span>, and
-              <span className="text-accent font-medium">
-                {" "}
-                automation solutions
-              </span>{" "}
-              that make a difference.
-            </p>
-          </div>
+            <span>Check My Jutsus</span>
+            <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+          </motion.button>
 
-          {/* CTA Buttons */}
-          <div
-            className={`transform transition-all duration-1000 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "800ms" }}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group inline-flex items-center gap-2 h-12 md:h-14 px-8 md:px-10 border-2 border-accent bg-background/50 backdrop-blur-custom text-accent rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-xl"
           >
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-4">
-              <button className="group inline-flex items-center gap-2 h-12 md:h-14 px-8 md:px-10 bg-gradient-accent text-primary-foreground rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-magnetic">
-                <span>View My Work</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+            <Mail className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
+            <span>Send a Shuriken</span>
+          </motion.button>
+        </motion.div>
 
-              <button className="group inline-flex items-center gap-2 h-12 md:h-14 px-8 md:px-10 border-2 border-accent bg-background/50 backdrop-blur-custom text-accent rounded-full font-semibold text-base md:text-lg  transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl animate-magnetic">
-                <Mail className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
-                <span>Get In Touch</span>
-              </button>
-            </div>
+        {/* Social Links */}
+        <motion.div
+          variants={fadeUp}
+          className="flex justify-center gap-6 md:gap-8 mt-4"
+        >
+          {[
+            { Icon: Github, href: "#", label: "GitHub" },
+            { Icon: Linkedin, href: "#", label: "LinkedIn" },
+            { Icon: Mail, href: "#", label: "Email" },
+          ].map(({ Icon, href, label }) => (
+            <motion.a
+              key={label}
+              href={href}
+              whileHover={{ scale: 1.1, rotate: [0, 5, -5, 0] }}
+              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-card border border-border/50 shadow-lg hover:shadow-xl backdrop-blur-custom"
+              aria-label={label}
+            >
+              <Icon className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground group-hover:text-accent transition-colors" />
+            </motion.a>
+          ))}
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          variants={fadeUp}
+          className="flex flex-col items-center gap-3 text-muted-foreground mt-12 md:mt-16"
+        >
+          <div className="w-6 h-10 md:w-7 md:h-12 border-2 border-muted-foreground/30 rounded-full flex justify-center p-1">
+            <div className="w-1 h-2 md:w-1.5 md:h-3 bg-accent rounded-full animate-bounce" />
           </div>
+          <span className="text-sm md:text-base font-medium">
+            Scroll like a ninja 🥷
+          </span>
+          <ChevronDown className="w-4 h-4 md:w-5 md:h-5 animate-bounce" />
+        </motion.div>
+      </motion.div>
 
-          {/* Social Links */}
-          <div
-            className={`transform transition-all duration-1000 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "1000ms" }}
-          >
-            <div className="flex justify-center gap-4 md:gap-6 px-4">
-              {[
-                { Icon: Github, href: "#", label: "GitHub" },
-                { Icon: Linkedin, href: "#", label: "LinkedIn" },
-                { Icon: Mail, href: "#", label: "Email" },
-              ].map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className="group inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-card border border-border/50 hover:border-accent/50 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl backdrop-blur-custom animate-magnetic"
-                  aria-label={label}
-                >
-                  <Icon className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground group-hover:text-accent transition-colors group-hover:scale-110 transform" />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div
-            className={`transform transition-all duration-1000 ease-out ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
-            style={{ transitionDelay: "1200ms" }}
-          >
-            <div className="flex flex-col items-center gap-3 text-muted-foreground mt-12 md:mt-16">
-              <div className="w-6 h-10 md:w-7 md:h-12 border-2 border-muted-foreground/30 rounded-full flex justify-center p-1">
-                <div className="w-1 h-2 md:w-1.5 md:h-3 bg-accent rounded-full animate-bounce" />
-              </div>
-              <span className="text-sm md:text-base font-medium">
-                Scroll to explore
-              </span>
-              <ChevronDown className="w-4 h-4 md:w-5 md:h-5 animate-bounce" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Gradient Border */}
+      {/* Bottom Gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
     </section>
   );

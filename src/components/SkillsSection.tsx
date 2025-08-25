@@ -1,13 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Code, Smartphone, Zap, Database, Globe, Wrench } from "lucide-react";
 
 const SkillsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [expanded, setExpanded] = useState<string | null>(null);
   const [isSmall, setIsSmall] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("All");
 
@@ -37,7 +36,7 @@ const SkillsSection = () => {
       title: "Automation & Scripting",
       details: "Web Scraping, N8N, Selenium",
       icon: Zap,
-      color: "from-blue-500  to-indigo-500",
+      color: "from-blue-500 to-indigo-500",
     },
     {
       title: "Programming Languages",
@@ -52,7 +51,7 @@ const SkillsSection = () => {
       color: "from-indigo-500 to-blue-500",
     },
     {
-      title: "Other Tools/Technologies",
+      title: "Other Tools/Tech",
       details: "Git, Firebase, Shadcn, Redux, Tailwind, PostGis, Postman, Expo",
       icon: Wrench,
       color: "from-red-500 to-pink-500",
@@ -63,29 +62,22 @@ const SkillsSection = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-    },
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 },
   };
 
   const getSkillIconPath = (name: string): string | null => {
     const key = name.toLowerCase();
-    // language/runtime/frameworks
     if (/(typescript|ts)/.test(key)) return "/icons/TypeScript.svg";
     if (/(javascript)/.test(key)) return "/icons/JavaScript.svg";
     if (/react native/.test(key)) return "/icons/react-native.svg";
     if (/react/.test(key)) return "/icons/react-icon.svg";
-    if (/next|nextjs|next/.test(key)) return "/icons/next-js.svg";
+    if (/next|nextjs/.test(key)) return "/icons/next-js.svg";
     if (/angular/.test(key)) return "/icons/angular-icon.svg";
     if (/node/.test(key)) return "/icons/node.svg";
     if (/express/.test(key)) return "/icons/express.svg";
@@ -95,59 +87,26 @@ const SkillsSection = () => {
     if (/android/.test(key)) return "/icons/android-studio.svg";
     if (/python/.test(key)) return "/icons/python.svg";
     if (/\bc\+\+\b/.test(key)) return "/icons/C++%20(CPlusPlus).svg";
-    if (/\bc#|csharp\b/.test(key)) return "/icons/C#%20(CSharp).svg";
     if (/\bc\b/.test(key)) return "/icons/c.svg";
     if (/java\b/.test(key)) return "/icons/Java.svg";
-    // databases
     if (/postgres|postgis/.test(key)) return "/icons/PostgresSQL.svg";
     if (/mysql/.test(key)) return "/icons/MySQL.svg";
     if (/sqlite/.test(key)) return "/icons/SQLite.svg";
     if (/mongodb/.test(key)) return "/icons/mongodb.svg";
-    // tooling/libraries
     if (/redux/.test(key)) return "/icons/redux.svg";
     if (/tailwind/.test(key)) return "/icons/Tailwind%20CSS.svg";
     if (/shadcn|shad-cn/.test(key)) return "/icons/shad-cn.svg";
     if (/git\b/.test(key)) return "/icons/Git.svg";
     if (/postman/.test(key)) return "/icons/Postman.svg";
-    if (/vs code|visual studio code/.test(key))
-      return "/icons/Visual%20Studio%20Code%20(VS%20Code).svg";
     if (/firebase/.test(key)) return "/icons/Firebase.svg";
     if (/selenium/.test(key)) return "/icons/Selenium.svg";
     if (/n8n/.test(key)) return "/icons/n8n-color.svg";
     if (/expo/.test(key)) return "/icons/expo.svg";
-
-    // generic
-    if (/api/.test(key)) return "/icons/api.svg";
     if (/automation|automate/.test(key)) return "/icons/auto-mation.svg";
     return null;
   };
 
-  // Scroll-reactive category label
-  const [currentCat, setCurrentCat] = useState<string>(skills[0]?.title ?? "");
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    const options: IntersectionObserverInit = {
-      root: null,
-      rootMargin: "-40% 0px -50% 0px",
-      threshold: 0.01,
-    };
-    skills.forEach((s) => {
-      const el = document.getElementById(`skill-cat-${s.title}`);
-      if (!el) return;
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setCurrentCat(s.title);
-        });
-      }, options);
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, [skills]);
-
   const tabs = ["All", ...skills.map((s) => s.title)];
-
   const skillsToRender =
     activeTab === "All" ? skills : skills.filter((s) => s.title === activeTab);
 
@@ -163,16 +122,33 @@ const SkillsSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Technical <span className="text-gradient">Skills</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            My <span className="text-gradient">Skills</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            A comprehensive toolkit of technologies and frameworks I use to
-            bring ideas to life
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Stuff I mess around with to turn ideas into actual things. Sometimes
+            it works, sometimes it’s like a Rasengan to the face 💥.
           </p>
         </motion.div>
+        {/* 
+        //tabs 
+        <div className="flex justify-center gap-4 mb-12 flex-wrap">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-xl font-medium transition ${
+                activeTab === tab
+                  ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white"
+                  : "bg-white/10 text-foreground hover:bg-white/20"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div> */}
 
-        {/* Category blocks (filtered by tab) */}
+        {/* Skill sections */}
         <div className="space-y-12">
           {skillsToRender.map((skill) => {
             const IconComponent = skill.icon;
@@ -180,6 +156,7 @@ const SkillsSection = () => {
               .split(",")
               .map((s) => s.trim())
               .filter(Boolean);
+
             return (
               <section key={skill.title} id={`skill-cat-${skill.title}`}>
                 <div className="flex items-center gap-3 mb-4">
@@ -205,12 +182,7 @@ const SkillsSection = () => {
                       <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-gradient-card border border-white/20 dark:border-white/10 shadow-md hover:shadow-lg transition-shadow">
                         {(() => {
                           const src = getSkillIconPath(child);
-                          if (!src)
-                            return (
-                              <span className="text-xl" aria-hidden>
-                                🔹
-                              </span>
-                            );
+                          if (!src) return <span>🔹</span>;
                           const needsInvert =
                             src.includes("next-js.svg") ||
                             src.includes("express.svg");
@@ -219,7 +191,7 @@ const SkillsSection = () => {
                             : "h-6 w-6 object-contain";
                           return <img src={src} alt={child} className={cls} />;
                         })()}
-                        <span className="text-base  font-medium text-foreground/90">
+                        <span className="text-base font-medium text-foreground/90">
                           {child}
                         </span>
                       </div>

@@ -41,7 +41,6 @@ const ExperienceSection = () => {
         "Postgres",
         "GPS",
         "Geospatial",
-        "PostGIS",
       ],
     },
   ];
@@ -51,18 +50,16 @@ const ExperienceSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
         delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-    },
+    hidden: { opacity: 0, y: 40, scale: 0.97 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+    hover: { scale: 1.02 }, // subtle scale, no shadow
   };
 
   return (
@@ -71,6 +68,7 @@ const ExperienceSection = () => {
       className="py-20 px-6 bg-gradient-to-br from-background to-muted/20"
     >
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -81,11 +79,12 @@ const ExperienceSection = () => {
             Work <span className="text-gradient">Experience</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Professional journey and internships that have shaped my development
+            Professional journey and internships that shaped my development
             skills
           </p>
         </motion.div>
 
+        {/* Experiences */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -96,9 +95,10 @@ const ExperienceSection = () => {
             <motion.div
               key={index}
               variants={itemVariants}
+              whileHover="hover"
               className="relative"
             >
-              <div className="bg-gradient-card border border-white/20 dark:border-white/10 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-card border border-white/20 dark:border-white/10 rounded-2xl p-8 transition-transform duration-300">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-4">
@@ -135,11 +135,8 @@ const ExperienceSection = () => {
                     </div>
 
                     <ul className="space-y-2 mb-4">
-                      {exp.details.map((detail, detailIndex) => (
-                        <li
-                          key={detailIndex}
-                          className="flex items-start gap-2"
-                        >
+                      {exp.details.map((detail, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
                           <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
                           <span className="text-muted-foreground">
                             {detail}
