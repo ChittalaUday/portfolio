@@ -10,6 +10,7 @@ import {
   Github,
   Linkedin,
   Mail,
+  Phone,
   ArrowRight,
 } from "lucide-react";
 import {
@@ -119,6 +120,11 @@ const Hero = () => {
           <motion.button
             whileHover={{ scale: 1.05, rotate: [0, 2, -2, 0] }}
             whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              document
+                .getElementById("skills")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
             className="group inline-flex items-center gap-2 h-12 md:h-14 px-8 md:px-10 bg-gradient-accent text-primary-foreground rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl"
           >
             <span>Check My Jutsus</span>
@@ -128,6 +134,11 @@ const Hero = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              document
+                .getElementById("contact")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
             className="group inline-flex items-center gap-2 h-12 md:h-14 px-8 md:px-10 border-2 border-accent bg-background/50 backdrop-blur-custom text-accent rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-xl"
           >
             <Mail className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
@@ -141,9 +152,26 @@ const Hero = () => {
           className="flex justify-center gap-6 md:gap-8 mt-4"
         >
           {[
-            { Icon: Github, href: "#", label: "GitHub" },
-            { Icon: Linkedin, href: "#", label: "LinkedIn" },
-            { Icon: Mail, href: "#", label: "Email" },
+            {
+              Icon: Github,
+              href: "https://github.com/ChittalaUday",
+              label: "GitHub",
+            },
+            {
+              Icon: Linkedin,
+              href: "http://www.linkedin.com/in/uday-kumar-chittala-a1b4912a6",
+              label: "LinkedIn",
+            },
+            {
+              Icon: Mail,
+              href: "mailto:chitalauday@gmail.com",
+              label: "Email",
+            },
+            {
+              Icon: Phone,
+              href: "tel:+91830954716",
+              label: "Phone",
+            },
           ].map(({ Icon, href, label }) => (
             <motion.a
               key={label}
@@ -161,13 +189,13 @@ const Hero = () => {
         {/* Scroll Indicator */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-col items-center gap-3 text-muted-foreground mt-12 md:mt-16"
+          className="flex flex-col items-center gap-3 text-muted-foreground"
         >
           <div className="w-6 h-10 md:w-7 md:h-12 border-2 border-muted-foreground/30 rounded-full flex justify-center p-1">
             <div className="w-1 h-2 md:w-1.5 md:h-3 bg-accent rounded-full animate-bounce" />
           </div>
           <span className="text-sm md:text-base font-medium">
-            Scroll like a ninja 🥷
+            Scroll like a ninja
           </span>
           <ChevronDown className="w-4 h-4 md:w-5 md:h-5 animate-bounce" />
         </motion.div>

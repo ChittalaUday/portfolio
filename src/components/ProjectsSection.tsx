@@ -18,6 +18,8 @@ const ProjectsSection = () => {
       tech: ["MEAN Stack", "Firebase", "Real-time", "Auth"],
       category: "Web Development",
       image: "/projects/harmony.png",
+      github: "https://github.com/ChittalaUday/Music-Player-MEAN",
+      demo: "https://harmony-demo.vercel.app",
     },
     {
       title: "DCS Web 🌱",
@@ -26,6 +28,8 @@ const ProjectsSection = () => {
       tech: ["Next.js", "Node.js", "Postgres", "Postgis", "GPS"],
       category: "Web Development",
       image: "/projects/dcs-web.png",
+      github: "",
+      demo: "",
     },
     {
       title: "DCS Mobile 📱",
@@ -34,6 +38,8 @@ const ProjectsSection = () => {
       tech: ["React Native", "GPS", "Geospatial"],
       category: "Mobile Development",
       image: "/projects/dcs.png",
+      github: "",
+      demo: "",
     },
     {
       title: "Campus News App 📰",
@@ -42,6 +48,8 @@ const ProjectsSection = () => {
       tech: ["Flutter", "Firebase", "Role-based", "Real-time"],
       category: "Mobile Development",
       image: "/projects/news-app.png",
+      github: "",
+      demo: "",
     },
     {
       title: "Complaint Management ⚡",
@@ -50,6 +58,8 @@ const ProjectsSection = () => {
       tech: ["Java", "Firebase", "Real-time", "Tracking"],
       category: "Desktop Application",
       image: "/projects/complaint-system.png",
+      github: "",
+      demo: "",
     },
     {
       title: "Cable Operator App 🖥️",
@@ -58,6 +68,8 @@ const ProjectsSection = () => {
       tech: ["Java", "MySQL", "Billing", "Customer Management"],
       category: "Desktop Application",
       image: "/projects/cable-operator.png",
+      github: "",
+      demo: "",
     },
     {
       title: "Recruitment Predictor 📊",
@@ -66,6 +78,8 @@ const ProjectsSection = () => {
       tech: ["Python", "Data Analysis", "Matplotlib", "Seaborn"],
       category: "Data Science",
       image: "/projects/recruitment.png",
+      github: "",
+      demo: "",
     },
   ];
 
@@ -83,7 +97,7 @@ const ProjectsSection = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 40, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1 },
-    hover: { scale: 1.02 }, // only scale, no shadow
+    hover: { scale: 1.02 },
   };
 
   return (
@@ -167,12 +181,26 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                  <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                    <Github size={18} />
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                    <ExternalLink size={18} />
-                  </button>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    >
+                      <Github size={18} />
+                    </a>
+                  )}
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

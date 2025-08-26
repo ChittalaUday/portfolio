@@ -175,7 +175,7 @@ const InterestsLanguagesSection = () => {
                               width: language.fluency.includes("Sage Mode")
                                 ? "100%"
                                 : language.fluency.includes("Hokage")
-                                ? "95%"
+                                ? "85%"
                                 : "65%",
                             }
                           : { width: 0 }
